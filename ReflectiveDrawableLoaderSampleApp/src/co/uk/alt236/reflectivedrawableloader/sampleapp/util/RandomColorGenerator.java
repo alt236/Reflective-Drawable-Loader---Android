@@ -31,6 +31,14 @@ public class RandomColorGenerator {
 	int green = mRandom.nextInt(255);
 	int blue = mRandom.nextInt(255);
 
-	return "#" + Integer.toHexString(red) + Integer.toHexString(green) + Integer.toHexString(blue);
+	return "#" + getColourHex(red) + getColourHex(green) + getColourHex(blue);
     }  
+    
+    
+    private String getColourHex(int colour){
+	// Hack to make sure that the resulting value is always two
+	// characters long; It will only work for values less than 255;
+	return Integer.toHexString(0x100 | colour).substring(1);
+    }
 }
+
