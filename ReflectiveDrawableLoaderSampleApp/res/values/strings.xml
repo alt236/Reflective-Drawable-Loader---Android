@@ -1,0 +1,8 @@
+<resources>
+
+    <string name="app_name">Reflective Drawable Loader Sample App</string>
+
+    <string name="button_randomise">Randomise!</string>
+    <string name="button_colorise">Colorise!</string>
+
+</resources>

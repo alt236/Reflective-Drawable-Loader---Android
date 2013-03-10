@@ -1,0 +1,5 @@
+gen
+bin
+.settings
+.metadata
+local.properties
