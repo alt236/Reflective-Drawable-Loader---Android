@@ -86,7 +86,7 @@ public class ColorisedDrawableArrayAdapter extends ArrayAdapter<DrawableResource
         public void populateFrom(DrawableResourceContainer drawableContainer) {
             if (drawableContainer != null) {        	
                 getName().setText(drawableContainer.getDrawableName());
-                drawableContainer.setImageWithPorterDuffMultiply(getImage1());
+                drawableContainer.setDrawableWithPorterDuffMultiply(getImage1());
             }
         }
 

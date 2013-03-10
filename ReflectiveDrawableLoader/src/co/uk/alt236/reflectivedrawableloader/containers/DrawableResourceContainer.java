@@ -34,7 +34,7 @@ public class DrawableResourceContainer {
 	return !(mColourFilterColour == null);
     }
 
-    public void setImageWithPorterDuffMultiply(ImageView iv) {
+    public void setDrawableWithPorterDuffMultiply(ImageView iv) {
 	iv.setImageResource(mResourceId);
 	if (hasColourFilter()) {
 	    iv.setColorFilter(mColourFilterColour, Mode.MULTIPLY);

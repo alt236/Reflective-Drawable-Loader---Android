@@ -4,6 +4,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.util.Log;
 import co.uk.alt236.reflectivedrawableloader.containers.DrawableResourceContainer;
 import co.uk.alt236.reflectivedrawableloader.containers.LruLinkedHashMap;
 
@@ -17,9 +18,9 @@ public final class ReflectiveDrawableLoader {
     public static final String ICON_PREFIX_LIST = ICON_PREFIX_BASE + "list_";
 
     private static final int CACHE_SIZE = 100;
-    private static final boolean LOG_REFLECTION_ERRORS = true;
 
     private final AtomicBoolean mAddDrawableNameToContainer;
+    private final AtomicBoolean mLogReflectionErrors;
     
     private static ReflectiveDrawableLoader instance = null;
     public static ReflectiveDrawableLoader getInstance(Context context) {
@@ -38,15 +39,21 @@ public final class ReflectiveDrawableLoader {
     public final String TAG = getClass().getName();
 
     private ReflectiveDrawableLoader() {
+	// We should never be here...
 	mReflectionUtils = null;
 	mCache = null;
 	mAddDrawableNameToContainer = null;
+	mLogReflectionErrors = null;
+	
+	Log.e(TAG, "ReflectiveDrawableLoader() - The default Constructor was called! This should never happen...");
+	throw new IllegalStateException("The default Constructor was called! This should never happen...");
     }
 
     private ReflectiveDrawableLoader(Context context) {
 	mReflectionUtils = new ReflectionUtils(context.getApplicationContext().getPackageName());
 	mCache = new LruLinkedHashMap<String, Integer>(CACHE_SIZE, 0.75f);
 	mAddDrawableNameToContainer = new AtomicBoolean(false);
+	mLogReflectionErrors = new AtomicBoolean(false);
     }
 
     public String formatKey(String name, String family){
@@ -57,18 +64,14 @@ public final class ReflectiveDrawableLoader {
 	}
     }
 
-    public synchronized void setAddDrawableNameToContainer(boolean value){
-	mAddDrawableNameToContainer.set(value);
-    }
-    
     public DrawableResourceContainer getColorisedDialogDrawable(String drawableName, String family, String color, int fallbackDrawableId) {
 	return getDrawableContainer(ICON_PREFIX_DIALOG + formatKey(drawableName, family), color, fallbackDrawableId);
     }
-
+    
     public DrawableResourceContainer getColorisedDrawable(String name, String color, int fallbackDrawableId){
 	return getColorisedDrawable(name, null, color, fallbackDrawableId);
     }
-
+    
     public DrawableResourceContainer getColorisedDrawable(String drawableName, String family, String color, int fallbackDrawableId){
 	return getDrawableContainer(formatKey(drawableName, family), color, fallbackDrawableId);
     }
@@ -93,8 +96,6 @@ public final class ReflectiveDrawableLoader {
 	return getDrawableContainer(ICON_PREFIX_TAB + formatKey(drawableName, family), color, fallbackDrawableId);
     }
 
-    //
-
     public int getDialogDrawable(String drawableName, String family, int fallbackDrawableId) {
 	return getDrawableId(ICON_PREFIX_DIALOG + formatKey(drawableName, family), fallbackDrawableId);
     }
@@ -103,24 +104,10 @@ public final class ReflectiveDrawableLoader {
 	return getDrawable(name, null, fallbackDrawableId);
     }
 
+    //
+
     public int getDrawable(String drawableName, String family, int fallbackDrawableId){
 	return getDrawableId(formatKey(drawableName, family), fallbackDrawableId);
-    }
-
-    private synchronized int getDrawableId(String drawableName, int fallbackDrawableId){
-	Integer result = null;
-
-	result = mCache.get(drawableName);
-
-	if(result == null){
-	    result  = mReflectionUtils.reflectDrawable(drawableName, fallbackDrawableId, LOG_REFLECTION_ERRORS);
-
-	    if(result != null && result != fallbackDrawableId){
-		mCache.put(drawableName, result);
-	    }
-	} 
-
-	return result;
     }
 
     private DrawableResourceContainer getDrawableContainer(String drawableName, String color, int fallbackDrawableId){
@@ -130,6 +117,22 @@ public final class ReflectiveDrawableLoader {
 	} else {
 	    return new DrawableResourceContainer((mAddDrawableNameToContainer.get() ? drawableName: null), res, tryColor(color));
 	}
+    }
+
+    private synchronized int getDrawableId(String drawableName, int fallbackDrawableId){
+	Integer result = null;
+
+	result = mCache.get(drawableName);
+
+	if(result == null){
+	    result  = mReflectionUtils.reflectDrawable(drawableName, fallbackDrawableId, mLogReflectionErrors.get());
+
+	    if(result != null && result != fallbackDrawableId){
+		mCache.put(drawableName, result);
+	    }
+	} 
+
+	return result;
     }
 
     public int getLauncherDrawable(String drawableName, String family, int fallbackDrawableId) {
@@ -144,19 +147,27 @@ public final class ReflectiveDrawableLoader {
 	return getDrawableId(ICON_PREFIX_MENU + formatKey(drawableName, family), fallbackDrawableId);
     }
 
-
-
     public ReflectionUtils getReflectionUtils(){
 	return mReflectionUtils;
     }
-
 
     public int getStatusBarDrawable(String drawableName, String family, int fallbackDrawableId) {
 	return getDrawableId(ICON_PREFIX_STATUS_BAR + formatKey(drawableName, family), fallbackDrawableId);
     }
 
+
+
     public int getTabDrawable(String drawableName, String family, int fallbackDrawableId) {
 	return getDrawableId(ICON_PREFIX_TAB + formatKey(drawableName, family), fallbackDrawableId);
+    }
+
+
+    public synchronized void setAddDrawableNameToContainer(boolean enable){
+	mAddDrawableNameToContainer.set(enable);
+    }
+
+    public synchronized void setLogReflectionErrors(boolean enable){
+	mLogReflectionErrors.set(enable);
     }
 
     private Integer tryColor(String colorString){
