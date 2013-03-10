@@ -14,8 +14,8 @@
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
-        android:gravity="center_vertical"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical" >
 
         <ImageView
             android:id="@+id/image1"

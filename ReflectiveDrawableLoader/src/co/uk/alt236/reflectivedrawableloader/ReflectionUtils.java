@@ -21,11 +21,11 @@ import android.util.Log;
 
 public class ReflectionUtils {
     public final String TAG = getClass().getName();
-    private final String RESOURCE_LOCATION_DRAWABLES = ".R.drawable";
+    protected final static String RESOURCE_LOCATION_DRAWABLES = ".R.drawable";
     
     private final String mPackageName;
 
-    public ReflectionUtils(String appPackageName) {
+    protected ReflectionUtils(String appPackageName) {
 	Log.d(TAG, "New ReflectionUtils() for '" + appPackageName + "'");
 	this.mPackageName = appPackageName;
     }
@@ -84,7 +84,7 @@ public class ReflectionUtils {
 	}
 
 	if (reportFailure) {
-	    Log.d(TAG, "reflectResource() Resource '" + fieldName + "' not available! (" + error +")");
+	    Log.w(TAG, "reflectResource() Resource '" + fieldName + "' not available! (" + error +")");
 	}
 
 	return defaultValue;

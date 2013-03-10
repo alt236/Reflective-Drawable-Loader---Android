@@ -198,12 +198,13 @@ public class IconArray {
 	String colour;
 	
 	loader.setAddDrawableNameToContainer(true);
+	loader.setLogErrors(true);
 	
 	for(int i = 0; i < resultSize; i++){
 	    name = ICON_ARRAY[r.nextInt(ICON_ARRAY.length)];
 	    family = FAMILY_ARRAY[r.nextInt(FAMILY_ARRAY.length)];
 	    colour = colorGen.getRandomHexColor();
-	    resourceContainer = loader.getColorisedMenuDrawable(
+	    resourceContainer = loader.getMenuDrawableContainer(
 		    name, 
 		    family, 
 		    colour, 

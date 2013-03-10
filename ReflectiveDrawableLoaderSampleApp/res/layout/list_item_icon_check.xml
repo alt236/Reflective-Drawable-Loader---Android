@@ -6,10 +6,10 @@
 
     <TextView
         android:id="@+id/name"
-        android:paddingLeft="4dp"
-        android:textColor="@android:color/white"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:paddingLeft="4dp"
+        android:textColor="@android:color/black" />
 
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"

@@ -140,10 +140,13 @@ public class ColorisedDrawableArrayAdapter extends ArrayAdapter<DrawableResource
                 }
                 
                 // This is applied using PorterDuff Mode Multiply
+                // It is the equivalent of:
+                // getImage3().setImageResource(container.getResourceId());
+                // getImage3().setColorFilter(container.getColourFilterColour(), Mode.MULTIPLY);
                 container.setDrawableWithPorterDuffMultiply(getImage3());
                 
                 // This is applied using a custom matrix which will replace
-                // other colours with the colourfilter one.
+                // other colours with the one set as the colorfilter.
                 container.setDrawableWithColorOverrideMatrix(getImage4());
             }
         }

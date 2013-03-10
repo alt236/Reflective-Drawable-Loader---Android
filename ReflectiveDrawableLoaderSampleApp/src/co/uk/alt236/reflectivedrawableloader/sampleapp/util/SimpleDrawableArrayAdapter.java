@@ -113,7 +113,7 @@ public class SimpleDrawableArrayAdapter extends ArrayAdapter<String>{
         	//
         	
                 getImage1().setImageResource(
-                	mReflectiveLoader.getDrawable(
+                	mReflectiveLoader.getDrawableId(
                 		fullName,
                 		mMissingIconId));
                 
