@@ -37,6 +37,8 @@ public final class ReflectiveDrawableLoader {
     private final AtomicBoolean mAddDrawableNameToContainer;
     private final AtomicBoolean mLogErrors;
 
+    private static final boolean TIME_LOGGING_ENABLED = false;
+    
     private static ReflectiveDrawableLoader instance = null;
     /**
      * Returns an instance of the ReflectiveDrawableLoader
@@ -88,7 +90,12 @@ public final class ReflectiveDrawableLoader {
 
     private synchronized int fetchDrawableId(String drawableName, int fallbackDrawableId){
 	Integer result = null;
-
+	long startTime;
+	
+	if(TIME_LOGGING_ENABLED){
+	    startTime = System.nanoTime();
+	}
+	
 	result = mCache.get(drawableName);
 
 	if(result == null){
@@ -99,6 +106,11 @@ public final class ReflectiveDrawableLoader {
 	    }
 	} 
 
+	if(TIME_LOGGING_ENABLED){
+	    long endTime = System.nanoTime();
+	    Log.d(TAG, "fetchDrawableId() - Fetched '"  + drawableName + "' in " + (endTime - startTime) + "ns");
+	}
+	
 	return result;
     }
 
