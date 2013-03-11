@@ -16,38 +16,47 @@
 package co.uk.alt236.reflectivedrawableloader;
 
 import java.lang.reflect.Field;
+import java.util.HashMap;
+import java.util.Map;
 
 import android.util.Log;
 
-public class ReflectionUtils {
+class ReflectionUtils {
     public final String TAG = getClass().getName();
     protected final static String RESOURCE_LOCATION_DRAWABLES = ".R.drawable";
-    
+
     private final String mPackageName;
+    private final Map<String, Class<?>> mClassCache;
 
     protected ReflectionUtils(String appPackageName) {
 	Log.d(TAG, "New ReflectionUtils() for '" + appPackageName + "'");
 	this.mPackageName = appPackageName;
+	this.mClassCache = new HashMap<String, Class<?>>();
     }
 
     protected Class<?> getResourceClass(final String suffix) {
-	try {
-	    Class<?> rClassBase = Class.forName(mPackageName + ".R");
-	    Class<?>[] subClassTable = rClassBase.getDeclaredClasses();
+	if(mClassCache.containsKey(suffix)){
+	    return mClassCache.get(suffix);
+	} else {
+	    try {
+		Class<?> rClassBase = Class.forName(mPackageName + ".R");
+		Class<?>[] subClassTable = rClassBase.getDeclaredClasses();
 
-	    for (Class<?> subClass : subClassTable) {
-		if (subClass.getCanonicalName().endsWith(suffix)) {
-		    return subClass;
+		for (Class<?> subClass : subClassTable) {
+		    if (subClass.getCanonicalName().endsWith(suffix)) {
+			mClassCache.put(suffix, subClass);
+			return subClass;
+		    }
 		}
+
+	    } catch (ClassNotFoundException e) {
+		Log.e(TAG, "getResourceClass() ClassNotFoundException: " + e.getMessage(), e);
 	    }
 
-	} catch (ClassNotFoundException e) {
-	    Log.e(TAG, "getResourceClass() ClassNotFoundException: " + e.getMessage(), e);
+	    Log.e(TAG, "getResourceClass() Unable to find Sublass: " + suffix);
+
+	    return null;
 	}
-
-	Log.e(TAG, "getResourceClass() Unable to find Sublass: " + suffix);
-
-	return null;
     }
 
     public void logSubClasses(String baseClass) {
