@@ -59,6 +59,17 @@ class ReflectionUtils {
 	}
     }
 
+    public void logFields(String resourceLocation) {
+	Log.d(TAG, "logFields() Getting Fields for '" + resourceLocation + "' ============= ");
+
+	try {
+	    Field[] fields = getResourceClass(resourceLocation).getFields();
+	    for (Field field : fields) {
+		Log.d(TAG, "logFields() Field: '" + field.getName() + "'");
+	    }
+	} catch (NullPointerException e) {}
+    }
+
     public void logSubClasses(String baseClass) {
 	Log.d(TAG, "logSubClasses() Getting subclasses for '" + baseClass + "' ============= ");
 
@@ -97,16 +108,5 @@ class ReflectionUtils {
 	}
 
 	return defaultValue;
-    }
-
-    public void logFields(String resourceLocation) {
-	Log.d(TAG, "logFields() Getting Fields for '" + resourceLocation + "' ============= ");
-
-	try {
-	    Field[] fields = getResourceClass(resourceLocation).getFields();
-	    for (Field field : fields) {
-		Log.d(TAG, "logFields() Field: '" + field.getName() + "'");
-	    }
-	} catch (NullPointerException e) {}
     }
 }
