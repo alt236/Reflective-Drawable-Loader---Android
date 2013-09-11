@@ -21,69 +21,69 @@ import android.graphics.PorterDuff.Mode;
 import android.widget.ImageView;
 
 public class DrawableResourceContainer {
-    private final int mResourceId;
-    private final Integer mColourFilterColour;
-    private final String mDrawableName;
-    private ColorFilter mColourFilter;
+	private final int mResourceId;
+	private final Integer mColourFilterColour;
+	private final String mDrawableName;
+	private ColorFilter mColourFilter;
 
-    public DrawableResourceContainer(int resourceId, Integer colourFilterColour) {
-	this(null, resourceId, colourFilterColour);
-    }
-
-    public DrawableResourceContainer(String drawableName, int resourceId, Integer colourFilterColour) {
-	this.mResourceId = resourceId;
-	this.mColourFilterColour = colourFilterColour;
-	this.mDrawableName = drawableName;
-    }
-
-    public Integer getColourFilterColour() {
-	return mColourFilterColour;
-    }
-
-    public String getDrawableName() {
-	return mDrawableName;
-    }
-
-    private ColorFilter getOverridingColorFilter(int color){
-	if(mColourFilter == null){
-	    int red = (color & 0xFF0000) / 0xFFFF;
-	    int green = (color & 0xFF00) / 0xFF;
-	    int blue = color & 0xFF;
-
-	    float[] matrix = { 0, 0, 0, 0, red
-		    , 0, 0, 0, 0, green
-		    , 0, 0, 0, 0, blue
-		    , 0, 0, 0, 1, 0 };
-
-	    mColourFilter =  new ColorMatrixColorFilter(matrix);
+	public DrawableResourceContainer(int resourceId, Integer colourFilterColour) {
+		this(null, resourceId, colourFilterColour);
 	}
-	return mColourFilter;
-    }
 
-    public int getResourceId() {
-	return mResourceId;
-    }
-
-    public boolean hasColourFilter() {
-	return !(mColourFilterColour == null);
-    }
-
-
-    public void setDrawableWithColorOverrideMatrix(ImageView iv) {
-	iv.setImageResource(mResourceId);
-	if (hasColourFilter()) {
-	    iv.setColorFilter(getOverridingColorFilter(mColourFilterColour));
-	} else {
-	    iv.setColorFilter(null);
+	public DrawableResourceContainer(String drawableName, int resourceId, Integer colourFilterColour) {
+		this.mResourceId = resourceId;
+		this.mColourFilterColour = colourFilterColour;
+		this.mDrawableName = drawableName;
 	}
-    }
 
-    public void setDrawableWithPorterDuffMultiply(ImageView iv) {
-	iv.setImageResource(mResourceId);
-	if (hasColourFilter()) {
-	    iv.setColorFilter(mColourFilterColour, Mode.MULTIPLY);
-	} else {
-	    iv.setColorFilter(null);
+	public Integer getColourFilterColour() {
+		return mColourFilterColour;
 	}
-    }
+
+	public String getDrawableName() {
+		return mDrawableName;
+	}
+
+	private ColorFilter getOverridingColorFilter(int color){
+		if(mColourFilter == null){
+			int red = (color & 0xFF0000) / 0xFFFF;
+			int green = (color & 0xFF00) / 0xFF;
+			int blue = color & 0xFF;
+
+			float[] matrix = { 0, 0, 0, 0, red
+					, 0, 0, 0, 0, green
+					, 0, 0, 0, 0, blue
+					, 0, 0, 0, 1, 0 };
+
+			mColourFilter =  new ColorMatrixColorFilter(matrix);
+		}
+		return mColourFilter;
+	}
+
+	public int getResourceId() {
+		return mResourceId;
+	}
+
+	public boolean hasColourFilter() {
+		return !(mColourFilterColour == null);
+	}
+
+
+	public void setDrawableWithColorOverrideMatrix(ImageView iv) {
+		iv.setImageResource(mResourceId);
+		if (hasColourFilter()) {
+			iv.setColorFilter(getOverridingColorFilter(mColourFilterColour));
+		} else {
+			iv.setColorFilter(null);
+		}
+	}
+
+	public void setDrawableWithPorterDuffMultiply(ImageView iv) {
+		iv.setImageResource(mResourceId);
+		if (hasColourFilter()) {
+			iv.setColorFilter(mColourFilterColour, Mode.MULTIPLY);
+		} else {
+			iv.setColorFilter(null);
+		}
+	}
 }
