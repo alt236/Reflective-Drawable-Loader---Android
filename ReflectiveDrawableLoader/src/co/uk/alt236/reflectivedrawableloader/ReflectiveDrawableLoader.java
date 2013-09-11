@@ -51,7 +51,7 @@ public final class ReflectiveDrawableLoader {
 		mAddDrawableNameToContainer = null;
 		mLogErrors = null;
 
-		Log.e(TAG, "ReflectiveDrawableLoader() - The default Constructor was called! This should never happen...");
+		Log.e(TAG, "ReflectiveDrawableLoader() The default Constructor was called! This should never happen...");
 		throw new IllegalStateException("The default Constructor was called! This should never happen...");
 	}
 
@@ -107,9 +107,9 @@ public final class ReflectiveDrawableLoader {
 	 * having to mess around with String concatenation in your code.
 	 * The Drawable filename in the Res folder needs to be prefixed with {@value #ICON_PREFIX_DIALOG}.
 	 * 
-	 * @param drawableName - The name of the Drawable to fetch.
-	 * @param family - The family (if any) of the variable to fetch. Set to null if no family is needed.
-	 * @param fallbackDrawableId - The id of the Drawable to use if the requested one does not exist.
+	 * @param drawableName The name of the Drawable to fetch.
+	 * @param family The family (if any) of the variable to fetch. Set to null if no family is needed.
+	 * @param fallbackDrawableId The id of the Drawable to use if the requested one does not exist.
 	 * @return The Id of the Drawable to display.
 	 */
 	public int getDialogDrawable(String drawableName, String family, int fallbackDrawableId) {
@@ -121,10 +121,10 @@ public final class ReflectiveDrawableLoader {
 	 * having to mess around with String concatenation in your code.
 	 * The Drawable filename in the Res folder needs to be prefixed with {@value #ICON_PREFIX_DIALOG}.
 	 * 
-	 * @param drawableName - The name of the Drawable to fetch.
-	 * @param family - The family (if any) of the variable to fetch. Set to null if no family is needed.
-	 * @param colorString - The colour used for the colour filter. It has to be in "#FFFFFF" format.
-	 * @param fallbackDrawableId - The id of the Drawable to use if the requested one does not exist.
+	 * @param drawableName The name of the Drawable to fetch.
+	 * @param family The family (if any) of the variable to fetch. Set to null if no family is needed.
+	 * @param colorString The colour used for the colour filter. It has to be in "#FFFFFF" format.
+	 * @param fallbackDrawableId The id of the Drawable to use if the requested one does not exist.
 	 * @return A {@link DrawableResourceContainer} with the requested Drawable data.
 	 */
 	public DrawableResourceContainer getDialogDrawableContainer(String drawableName, String family, String colorString, int fallbackDrawableId) {
@@ -137,9 +137,9 @@ public final class ReflectiveDrawableLoader {
 	 * It is functionally identical to calling getDrawableContainer(drawableName, family, colorString, fallbackDrawableId) 
 	 * with the family set to null.
 	 * 
-	 * @param drawableName - The name of the Drawable to fetch.
-	 * @param colorString - The colour used for the colour filter. It has to be in "#FFFFFF" format.
-	 * @param fallbackDrawableId - The id of the Drawable to use if the requested one does not exist.
+	 * @param drawableName The name of the Drawable to fetch.
+	 * @param colorString The colour used for the colour filter. It has to be in "#FFFFFF" format.
+	 * @param fallbackDrawableId The id of the Drawable to use if the requested one does not exist.
 	 * @return A {@link DrawableResourceContainer} with the requested Drawable data.
 	 */
 	public DrawableResourceContainer getDrawableContainer(String drawableName, String colorString, int fallbackDrawableId){
@@ -150,20 +150,35 @@ public final class ReflectiveDrawableLoader {
 	 * This function will return {@link DrawableResourceContainer} containing the requested Drawable information
 	 * <b>This function makes no assumptions regarding a Drawable's prefix, so you will need input its full name.</b> 
 	 * 
-	 * @param drawableName - The name of the Drawable to fetch.
-	 * @param family - The family (if any) of the variable to fetch. Set to null if no family is needed.
-	 * @param colorString - The colour used for the colour filter. It has to be in "#FFFFFF" format.
-	 * @param fallbackDrawableId - The id of the Drawable to use if the requested one does not exist.
+	 * @param drawableName The name of the Drawable to fetch.
+	 * @param family The family (if any) of the variable to fetch. Set to null if no family is needed.
+	 * @param colorString The colour used for the colour filter. It has to be in "#FFFFFF" format.
+	 * @param fallbackDrawableId The id of the Drawable to use if the requested one does not exist.
 	 * @return A {@link DrawableResourceContainer} with the requested Drawable data.
 	 */
 	public DrawableResourceContainer getDrawableContainer(String drawableName, String family, String colorString, int fallbackDrawableId){
 		return fetchDrawableContainer(formatKey(drawableName, family), colorString, fallbackDrawableId);
 	}
 
-	public int getDrawableId(String name, int fallbackDrawableId){
-		return getDrawableId(name, null, fallbackDrawableId);
+	/**
+	 * Attempts to retrieve the Id of the requested Drawable.
+	 *
+	 * @param drawableName The name of the Drawable to fetch.
+	 * @param fallbackDrawableId The id of the Drawable to use if the requested one does not exist.
+	 * @return The Id of the Drawable to display.
+	 */
+	public int getDrawableId(String drawableName, int fallbackDrawableId){
+		return getDrawableId(drawableName, null, fallbackDrawableId);
 	}
 
+	/**
+	 * Attempts to retrieve the Id of the requested Drawable.
+	 *
+	 * @param drawableName The name of the Drawable to fetch.
+	 * @param family The family (if any) of the variable to fetch. Set to null if no family is needed.
+	 * @param fallbackDrawableId The id of the Drawable to use if the requested one does not exist.
+	 * @return The Id of the Drawable to display.
+	 */
 	public int getDrawableId(String drawableName, String family, int fallbackDrawableId){
 		return fetchDrawableId(formatKey(drawableName, family), fallbackDrawableId);
 	}
@@ -173,10 +188,10 @@ public final class ReflectiveDrawableLoader {
 	 * having to mess around with String concatenation in your code.
 	 * The Drawable filename in the Res folder needs to be prefixed with {@value #ICON_PREFIX_LAUNCHER}.
 	 * 
-	 * @param drawableName - The name of the Drawable to fetch.
-	 * @param family - The family (if any) of the variable to fetch. Set to null if no family is needed.
-	 * @param colorString - The colour used for the colour filter. It has to be in "#FFFFFF" format.
-	 * @param fallbackDrawableId - The id of the Drawable to use if the requested one does not exist.
+	 * @param drawableName The name of the Drawable to fetch.
+	 * @param family The family (if any) of the variable to fetch. Set to null if no family is needed.
+	 * @param colorString The colour used for the colour filter. It has to be in "#FFFFFF" format.
+	 * @param fallbackDrawableId The id of the Drawable to use if the requested one does not exist.
 	 * @return A {@link DrawableResourceContainer} with the requested Drawable data.
 	 */
 	public DrawableResourceContainer getLauncherDrawableContainer(String drawableName, String family, String colorString, int fallbackDrawableId) {
@@ -188,9 +203,9 @@ public final class ReflectiveDrawableLoader {
 	 * having to mess around with String concatenation in your code.
 	 * The Drawable filename in the Res folder needs to be prefixed with {@value #ICON_PREFIX_LAUNCHER}.
 	 * 
-	 * @param drawableName - The name of the Drawable to fetch.
-	 * @param family - The family (if any) of the variable to fetch. Set to null if no family is needed.
-	 * @param fallbackDrawableId - The id of the Drawable to use if the requested one does not exist.
+	 * @param drawableName The name of the Drawable to fetch.
+	 * @param family The family (if any) of the variable to fetch. Set to null if no family is needed.
+	 * @param fallbackDrawableId The id of the Drawable to use if the requested one does not exist.
 	 * @return The Id of the Drawable to display.
 	 */
 	public int getLauncherDrawableId(String drawableName, String family, int fallbackDrawableId) {
@@ -202,10 +217,10 @@ public final class ReflectiveDrawableLoader {
 	 * having to mess around with String concatenation in your code.
 	 * The Drawable filename in the Res folder needs to be prefixed with {@value #ICON_PREFIX_LIST}.
 	 * 
-	 * @param drawableName - The name of the Drawable to fetch.
-	 * @param family - The family (if any) of the variable to fetch. Set to null if no family is needed.
-	 * @param colorString - The colour used for the colour filter. It has to be in "#FFFFFF" format.
-	 * @param fallbackDrawableId - The id of the Drawable to use if the requested one does not exist.
+	 * @param drawableName The name of the Drawable to fetch.
+	 * @param family The family (if any) of the variable to fetch. Set to null if no family is needed.
+	 * @param colorString The colour used for the colour filter. It has to be in "#FFFFFF" format.
+	 * @param fallbackDrawableId The id of the Drawable to use if the requested one does not exist.
 	 * @return A {@link DrawableResourceContainer} with the requested Drawable data.
 	 */
 	public DrawableResourceContainer getListDrawableContainer(String drawableName, String family, String colorString, int fallbackDrawableId) {
@@ -220,9 +235,9 @@ public final class ReflectiveDrawableLoader {
 	 * having to mess around with String concatenation in your code.
 	 * The Drawable filename in the Res folder needs to be prefixed with {@value #ICON_PREFIX_LIST}.
 	 * 
-	 * @param drawableName - The name of the Drawable to fetch.
-	 * @param family - The family (if any) of the variable to fetch. Set to null if no family is needed.
-	 * @param fallbackDrawableId - The id of the Drawable to use if the requested one does not exist.
+	 * @param drawableName The name of the Drawable to fetch.
+	 * @param family The family (if any) of the variable to fetch. Set to null if no family is needed.
+	 * @param fallbackDrawableId The id of the Drawable to use if the requested one does not exist.
 	 * @return The Id of the Drawable to display.
 	 */
 	public int getListDrawableId(String drawableName, String family, int fallbackDrawableId) {
@@ -234,10 +249,10 @@ public final class ReflectiveDrawableLoader {
 	 * having to mess around with String concatenation in your code.
 	 * The Drawable filename in the Res folder needs to be prefixed with {@value #ICON_PREFIX_MENU}.
 	 * 
-	 * @param drawableName - The name of the Drawable to fetch.
-	 * @param family - The family (if any) of the variable to fetch. Set to null if no family is needed.
-	 * @param colorString - The colour used for the colour filter. It has to be in "#FFFFFF" format.
-	 * @param fallbackDrawableId - The id of the Drawable to use if the requested one does not exist.
+	 * @param drawableName The name of the Drawable to fetch.
+	 * @param family The family (if any) of the variable to fetch. Set to null if no family is needed.
+	 * @param colorString The colour used for the colour filter. It has to be in "#FFFFFF" format.
+	 * @param fallbackDrawableId The id of the Drawable to use if the requested one does not exist.
 	 * @return A {@link DrawableResourceContainer} with the requested Drawable data.
 	 */
 	public DrawableResourceContainer getMenuDrawableContainer(String drawableName, String family, String colorString, int fallbackDrawableId) {
@@ -249,9 +264,9 @@ public final class ReflectiveDrawableLoader {
 	 * having to mess around with String concatenation in your code.
 	 * The Drawable filename in the Res folder needs to be prefixed with {@value #ICON_PREFIX_MENU}.
 	 * 
-	 * @param drawableName - The name of the Drawable to fetch.
-	 * @param family - The family (if any) of the variable to fetch. Set to null if no family is needed.
-	 * @param fallbackDrawableId - The id of the Drawable to use if the requested one does not exist.
+	 * @param drawableName The name of the Drawable to fetch.
+	 * @param family The family (if any) of the variable to fetch. Set to null if no family is needed.
+	 * @param fallbackDrawableId The id of the Drawable to use if the requested one does not exist.
 	 * @return The Id of the Drawable to display.
 	 */
 	public int getMenuDrawableId(String drawableName, String family, int fallbackDrawableId) {
@@ -263,10 +278,10 @@ public final class ReflectiveDrawableLoader {
 	 * having to mess around with String concatenation in your code.
 	 * The Drawable filename in the Res folder needs to be prefixed with {@value #ICON_PREFIX_STATUS_BAR}.
 	 * 
-	 * @param drawableName - The name of the Drawable to fetch.
-	 * @param family - The family (if any) of the variable to fetch. Set to null if no family is needed.
-	 * @param colorString - The colour used for the colour filter. It has to be in "#FFFFFF" format.
-	 * @param fallbackDrawableId - The id of the Drawable to use if the requested one does not exist.
+	 * @param drawableName The name of the Drawable to fetch.
+	 * @param family The family (if any) of the variable to fetch. Set to null if no family is needed.
+	 * @param colorString The colour used for the colour filter. It has to be in "#FFFFFF" format.
+	 * @param fallbackDrawableId The id of the Drawable to use if the requested one does not exist.
 	 * @return A {@link DrawableResourceContainer} with the requested Drawable data.
 	 */
 	public DrawableResourceContainer getStatusBarDrawableContainer(String drawableName, String family, String colorString, int fallbackDrawableId) {
@@ -278,9 +293,9 @@ public final class ReflectiveDrawableLoader {
 	 * having to mess around with String concatenation in your code.
 	 * The Drawable filename in the Res folder needs to be prefixed with {@value #ICON_PREFIX_STATUS_BAR}.
 	 * 
-	 * @param drawableName - The name of the Drawable to fetch.
-	 * @param family - The family (if any) of the variable to fetch. Set to null if no family is needed.
-	 * @param fallbackDrawableId - The id of the Drawable to use if the requested one does not exist.
+	 * @param drawableName The name of the Drawable to fetch.
+	 * @param family The family (if any) of the variable to fetch. Set to null if no family is needed.
+	 * @param fallbackDrawableId The id of the Drawable to use if the requested one does not exist.
 	 * @return The Id of the Drawable to display.
 	 */
 	public int getStatusBarDrawableId(String drawableName, String family, int fallbackDrawableId) {
@@ -292,10 +307,10 @@ public final class ReflectiveDrawableLoader {
 	 * having to mess around with String concatenation in your code.
 	 * The Drawable filename in the Res folder needs to be prefixed with {@value #ICON_PREFIX_TAB}.
 	 * 
-	 * @param drawableName - The name of the Drawable to fetch.
-	 * @param family - The family (if any) of the variable to fetch. Set to null if no family is needed.
-	 * @param colorString - The colour used for the colour filter. It has to be in "#FFFFFF" format.
-	 * @param fallbackDrawableId - The id of the Drawable to use if the requested one does not exist.
+	 * @param drawableName The name of the Drawable to fetch.
+	 * @param family The family (if any) of the variable to fetch. Set to null if no family is needed.
+	 * @param colorString The colour used for the colour filter. It has to be in "#FFFFFF" format.
+	 * @param fallbackDrawableId The id of the Drawable to use if the requested one does not exist.
 	 * @return A {@link DrawableResourceContainer} with the requested Drawable data.
 	 */
 	public DrawableResourceContainer getTabDrawableContainer(String drawableName, String family, String colorString, int fallbackDrawableId) {
@@ -307,9 +322,9 @@ public final class ReflectiveDrawableLoader {
 	 * having to mess around with String concatenation in your code.
 	 * The Drawable filename in the Res folder needs to be prefixed with {@value #ICON_PREFIX_TAB}.
 	 * 
-	 * @param drawableName - The name of the Drawable to fetch.
-	 * @param family - The family (if any) of the variable to fetch. Set to null if no family is needed.
-	 * @param fallbackDrawableId - The id of the Drawable to use if the requested one does not exist.
+	 * @param drawableName The name of the Drawable to fetch.
+	 * @param family The family (if any) of the variable to fetch. Set to null if no family is needed.
+	 * @param fallbackDrawableId The id of the Drawable to use if the requested one does not exist.
 	 * @return The Id of the Drawable to display.
 	 */
 	public int getTabDrawableId(String drawableName, String family, int fallbackDrawableId) {
@@ -382,7 +397,7 @@ public final class ReflectiveDrawableLoader {
 	/**
 	 * Returns an instance of the ReflectiveDrawableLoader
 	 * 
-	 * @param context - A standard Android context. It cannot be null
+	 * @param context A standard Android context. It cannot be null
 	 * @return The instance of the ReflectiveDrawableLoader
 	 */
 	public static ReflectiveDrawableLoader getInstance(Context context) {
