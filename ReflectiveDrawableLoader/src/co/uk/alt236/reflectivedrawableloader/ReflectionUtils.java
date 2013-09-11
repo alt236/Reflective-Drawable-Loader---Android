@@ -34,7 +34,7 @@ class ReflectionUtils {
 		mClassCache = new HashMap<String, Class<?>>();
 	}
 
-	protected Class<?> getResourceClass(final String suffix) {
+	private Class<?> getResourceClass(final String suffix) {
 		if(mClassCache.containsKey(suffix)){
 			return mClassCache.get(suffix);
 		} else {
@@ -90,7 +90,7 @@ class ReflectionUtils {
 		return reflectResource(RESOURCE_LOCATION_DRAWABLES, fieldName, defaultValue, reportFailure);
 	}
 
-	protected int reflectResource(String resourceLocation, String fieldName, int defaultValue, boolean reportFailure) {
+	private int reflectResource(String resourceLocation, String fieldName, int defaultValue, boolean reportFailure) {
 		int error = 0;
 		try {
 			final Field field = getResourceClass(resourceLocation).getField(fieldName);

@@ -36,15 +36,14 @@ public final class ReflectiveDrawableLoader {
 	private static final boolean TIME_LOGGING_ENABLED = false;
 
 	private static ReflectiveDrawableLoader instance = null;
-	
+
+	private final String TAG = getClass().getName();
 	private final AtomicBoolean mAddDrawableNameToContainer;
 	private final AtomicBoolean mLogErrors;
 	private final ReflectionUtils mReflectionUtils;
 	private final LruLinkedHashMap<String, Integer> mCache;
 	private final LruLinkedHashMap<String, Object> mCacheMisses;
 
-	public final String TAG = getClass().getName();
-	
 	private ReflectiveDrawableLoader() {
 		// We should never be here...
 		mReflectionUtils = null;

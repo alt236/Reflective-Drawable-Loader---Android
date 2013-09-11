@@ -68,7 +68,6 @@ public class DrawableResourceContainer {
 		return !(mColourFilterColour == null);
 	}
 
-
 	public void setDrawableWithColorOverrideMatrix(ImageView iv) {
 		iv.setImageResource(mResourceId);
 		if (hasColourFilter()) {
