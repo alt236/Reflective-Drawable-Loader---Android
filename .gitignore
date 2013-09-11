@@ -1,5 +1,6 @@
 gen
 bin
+dist
 .settings
 .metadata
 local.properties
