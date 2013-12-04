@@ -8,6 +8,9 @@ It is using LRU caching to mitigate the reflection time overhead.
 
 It also includes a few convenience functions to help change Drawable colour based on a hex colour value. 
 
+Sample app available on the [Play Store](https://play.google.com/store/apps/details?id=co.uk.alt236.reflectivedrawableloader.sampleapp) 
+
+
 Basic Usage
 -----------
 To use:
@@ -66,6 +69,7 @@ Changelog
 -----------
 * v0.0.1 First public release
 * v0.0.2 Bugfixes, added caching of the resource classes in ReflectionUtils.
+* v0.0.3 Added caching of non-existing drawable requests.
 
 Permission Explanation
 -----------
